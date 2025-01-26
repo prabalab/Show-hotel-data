@@ -9,31 +9,5 @@ const pool = new Pool({
   port: 5432,             // Default PostgreSQL port
 });
 
-// Create the hotel_bookings table if it doesn't exist
-const createTableQuery = `
-CREATE TABLE IF NOT EXISTS hotel_bookings (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    room_type VARCHAR(50) NOT NULL,
-    room_number INT NOT NULL,
-    check_in DATE NOT NULL,
-    check_out DATE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-`;
-
-async function setupDatabase() {
-  try {
-    await pool.query(createTableQuery);
-    console.log("Table 'hotel_bookings' created successfully.");
-  } catch (error) {
-    console.error("Error creating table:", error.message);
-  }
-}
-
-// Run the setupDatabase function
-setupDatabase();
-
 // Export the pool for use in other files
 module.exports = pool;
